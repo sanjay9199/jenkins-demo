@@ -1,6 +1,3 @@
 Hello from GitHub
 Jenkins CI/CD Practice
-Poll SCM Practice
-ffff
-gff
-oijj
+Poll SCM Test 2
