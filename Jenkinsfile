@@ -1,22 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        label 'windows'
+    }
 
     stages {
 
-        stage('Credential Test') {
+        stage('Agent Test') {
             steps {
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'e4c2a6c6-7b1e-4ddb-b3cf-d49016c78b05',
-                        usernameVariable: 'MY_USER',
-                        passwordVariable: 'MY_PASS'
-                    )
-                ]) {
-                    bat '''
-                        echo Username is %MY_USER%
-                        echo Password is protected
-                    '''
-                }
+                bat 'whoami'
+                bat 'hostname'
+                bat 'echo Hello from Windows Agent'
             }
         }
     }
