@@ -3,43 +3,32 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                echo 'Repository Checked Out'
-            }
-        }
-
         stage('Build') {
             steps {
-                echo 'Building Application'
+                echo 'Building application...'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running Tests'
+                echo 'Running tests...'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying Application'
+                echo 'Deploying application...'
             }
         }
-
     }
 
     post {
-        always {
-            echo 'Pipeline Finished'
-        }
-
         success {
-            echo 'Build Success'
+            echo 'CI/CD Pipeline completed successfully!'
         }
 
         failure {
-            echo 'Build Failed'
+            echo 'Pipeline failed!'
         }
     }
 }
