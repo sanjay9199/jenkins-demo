@@ -5,7 +5,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Building application...'
+                echo 'Build v2 from GitHub'
             }
         }
 
