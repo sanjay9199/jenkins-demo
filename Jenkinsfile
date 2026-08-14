@@ -3,32 +3,19 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        stage('Credential Test') {
             steps {
-                echo 'Build v2 from GitHub'
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'e4c2a6c6-7b1e-4ddb-b3cf-d49016c78b05',
+                        usernameVariable: 'MY_USER',
+                        passwordVariable: 'MY_PASS'
+                    )
+                ]) {
+                    echo "Username: ${MY_USER}"
+                    echo "Password is protected"
+                }
             }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying application... '
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'CI/CD Pipeline completed successfully! sanjjjj'
-        }
-
-        failure {
-            echo 'Pipeline failed!   sanj'
         }
     }
 }
