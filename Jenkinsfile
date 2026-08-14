@@ -4,33 +4,63 @@ pipeline {
         label 'windows'
     }
 
-    environment {
-        APP_NAME = 'MyApplication'
-        VERSION = '1.0'
-        ENVIRONMENT = 'DEV'
+    parameters {
+        choice(
+            name: 'ENVIRONMENT',
+            choices: ['DEV', 'TEST', 'PROD'],
+            description: 'Select deployment environment'
+        )
     }
 
     stages {
 
         stage('Build') {
             steps {
-                bat 'echo Application: %APP_NAME%'
-                bat 'echo Version: %VERSION%'
-                bat 'echo Environment: %ENVIRONMENT%'
+                bat 'echo Building application...'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'echo Testing %APP_NAME%'
-                bat 'echo Running tests for version %VERSION%'
+                bat 'echo Running tests...'
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy DEV') {
+            when {
+                expression {
+                    params.ENVIRONMENT == 'DEV'
+                }
+            }
+
             steps {
-                bat 'echo Deploying %APP_NAME%'
-                bat 'echo Deployment Environment: %ENVIRONMENT%'
+                bat 'echo Deploying to DEV...'
+            }
+        }
+
+        stage('Deploy TEST') {
+            when {
+                expression {
+                    params.ENVIRONMENT == 'TEST'
+                }
+            }
+
+            steps {
+                bat 'echo Deploying to TEST...'
+            }
+        }
+
+        stage('Deploy PROD') {
+            when {
+                expression {
+                    params.ENVIRONMENT == 'PROD'
+                }
+            }
+
+            steps {
+                input message: 'Deploy to PROD?', ok: 'Deploy'
+
+                bat 'echo Deploying to PROD...'
             }
         }
     }
@@ -38,6 +68,10 @@ pipeline {
     post {
         success {
             echo 'Pipeline completed successfully!'
+        }
+
+        failure {
+            echo 'Pipeline failed!'
         }
     }
 }
