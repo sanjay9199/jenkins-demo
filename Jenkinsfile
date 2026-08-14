@@ -12,8 +12,10 @@ pipeline {
                         passwordVariable: 'MY_PASS'
                     )
                 ]) {
-                    echo "Username: ${MY_USER}"
-                    echo "Password is protected"
+                    bat '''
+                        echo Username is %MY_USER%
+                        echo Password is protected
+                    '''
                 }
             }
         }
