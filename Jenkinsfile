@@ -17,14 +17,14 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
+                echo 'Deploying application... '
             }
         }
     }
 
     post {
         success {
-            echo 'CI/CD Pipeline completed successfully!'
+            echo 'CI/CD Pipeline completed successfully! sanjjjj'
         }
 
         failure {
